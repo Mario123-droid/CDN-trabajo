@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Un color de fondo suave */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido horizontalmente */
+    min-height: 100vh; /* Ocupa al menos el alto completo de la ventana */
+}
+
+/* Estilos para la barra superior con imágenes */
+.top-bar {
+    width: 100%;
+    background-color: #333; /* Color oscuro para la barra superior */
+    padding: 10px 0;
+    overflow: hidden; /* Oculta las partes de las imágenes que se salen */
+    white-space: nowrap; /* Asegura que las imágenes no salten de línea */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra sutil */
+}
+
+.image-slider {
+    display: inline-block; /* Permite que los elementos estén en una sola línea */
+    animation: scrollImages 20s linear infinite; /* Animación de desplazamiento */
+    /* Ajusta el tiempo (20s) para controlar la velocidad. Menos tiempo = más rápido */
+}
+
+.image-slider img {
+    height: 50px; /* Altura de las imágenes en la barra superior */
+    width: auto; /* Ancho automático para mantener la proporción */
+    margin: 0 15px; /* Espacio entre las imágenes */
+    vertical-align: middle; /* Alinea las imágenes verticalmente */
+    filter: invert(100%); /* Hace las imágenes blancas (simulando los iconos del boceto) */
+    /* Quita 'filter: invert(100%);' si tus imágenes ya son como quieres */
+}
+
+/* Animación de las imágenes */
+@keyframes scrollImages {
+    0% { transform: translateX(0); } /* Empieza en la posición original */
+    100% { transform: translateX(-50%); } /* Se mueve la mitad del ancho del slider (para el bucle infinito) */
+}
+
+/* Estilos para el área de contenido principal */
+.content-area {
+    flex-grow: 1; /* Hace que esta sección ocupe el espacio restante */
+    display: flex;
+    justify-content: center; /* Centra el video horizontalmente */
+    align-items: center; /* Centra el video verticalmente */
+    width: 100%;
+    max-width: 900px; /* Ancho máximo para el área de contenido */
+    padding: 20px;
+    box-sizing: border-box; /* Incluye padding en el ancho total */
+}
+
+/* Estilos para el contenedor del video de YouTube */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Relación de aspecto 16:9 (altura / ancho) */
+    height: 0;
+    overflow: hidden;
+    background-color: #000; /* Fondo negro para el contenedor del video */
+    border-radius: 8px; /* Bordes ligeramente redondeados */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Sombra más pronunciada para el video */
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none; /* Elimina el borde predeterminado del iframe */
+}
+
+/* Estilos para la apariencia general de la página, simulando el borde del boceto */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 5px solid #000; /* Borde oscuro alrededor de toda la ventana */
+    pointer-events: none; /* Permite interactuar con los elementos debajo del borde */
+    z-index: -1; /* Asegura que el borde esté detrás del contenido */
+}
