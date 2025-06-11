@@ -95,22 +95,22 @@ body {
     left: 0;
 }
 
-/* --- NUEVOS ESTILOS AÑADIDOS PARA LAS IMÁGENES LATERALES --- */
+/* --- ESTILOS PARA LAS IMÁGENES LATERALES EN ESCRITORIO --- */
 .side-image-container {
     display: flex; /* Usar flexbox para centrar la imagen dentro de su contenedor */
     justify-content: center;
     align-items: center;
-    width: 150px; /* Ajusta el ancho según el tamaño deseado de la imagen */
-    height: 290px; /* Haz que su altura coincida con la del video o ajústala */
-  
-
+    width: 150px; /* Ancho del círculo lateral en escritorio */
+    height: 590px; /* Altura del círculo lateral (igual que el video) */
+    overflow: hidden; /* IMPORTANTE: Recorta si la imagen es más grande que el contenedor */
+    border-radius: 50%; /* Esto hará que el contenedor sea redondo */
     flex-shrink: 0; /* Evita que se encoja en pantallas pequeñas */
 }
 
 .side-image-container img {
     width: 100%; /* La imagen llenará el ancho de su contenedor */
     height: 100%; /* La imagen llenará la altura de su contenedor */
-   
+    object-fit: cover; /* Hace que la imagen cubra el área sin distorsionarse, recortando si es necesario */
     border-radius: 50%; /* Hace que la imagen en sí también sea redonda */
 }
 
@@ -145,21 +145,38 @@ body::before {
         margin: 0 5px; /* Menos espacio entre imágenes para pantallas pequeñas */
     }
 
-    /* Ocultar las imágenes laterales en móviles */
-    .side-image-container {
-        display: none; /* Las imágenes laterales no se mostrarán en pantallas pequeñas */
-    }
-
     /* Contenedor del video (video-container) más pequeño en móviles */
     .video-container {
         width: 300px;  /* Ancho más pequeño para el video en móviles */
         height: 450px; /* Altura más pequeña para el video en móviles */
-        margin: 0; /* Elimina el margen lateral cuando las imágenes están ocultas */
+        margin: 0 5px; /* Añade un pequeño margen para separar del las imágenes laterales */
     }
 
-    /* También es buena idea ajustar el max-width del content-area para móviles */
+    /* Ajustar el content-area para que quepan los 3 elementos en móvil */
     .content-area {
-        max-width: 300px; /* Se ajusta al nuevo ancho del video */
+        /* Se ajusta el ancho máximo para permitir el video y las imágenes laterales */
+        /* Cálculo: 80px(img) + 5px(margin) + 300px(video) + 5px(margin) + 80px(img) + 2*10px(padding) = 490px */
+        max-width: 490px; /* Aumentado para que quepan las imágenes laterales y el video */
         padding: 10px; /* Reduce el padding en móviles */
+    }
+
+    /* *** CAMBIOS CLAVE AQUÍ: Las imágenes laterales se muestran y se redimensionan en móvil *** */
+    .side-image-container {
+        display: flex; /* HACEMOS QUE SE MUESTREN en móviles (QUITAMOS display: none;) */
+        justify-content: center;
+        align-items: center;
+        width: 80px;  /* Ancho más pequeño para el contenedor lateral en móvil */
+        height: 80px; /* Altura igual al ancho para mantener la forma circular */
+        overflow: hidden; /* IMPORTANTE: Para recortar la imagen si es necesario */
+        border-radius: 50%; /* Asegura que el contenedor siga siendo un círculo */
+        margin: 0 5px; /* Pequeño margen para separarlas del video */
+        flex-shrink: 0; /* Evita que se encojan en pantallas pequeñas */
+    }
+
+    .side-image-container img {
+        width: 100%; /* La imagen llenará el ancho de su contenedor */
+        height: 100%; /* La imagen llenará la altura de su contenedor */
+        object-fit: fill; /* ESTIRA LA IMAGEN para llenar el círculo, incluso si eso la deforma */
+        border-radius: 50%; /* Mantiene la imagen dentro del círculo */
     }
 }
