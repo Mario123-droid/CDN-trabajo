@@ -156,7 +156,7 @@ body::before {
     .content-area {
         /* Se ajusta el ancho máximo para permitir el video y las imágenes laterales */
         /* Cálculo: 80px(img) + 5px(margin) + 300px(video) + 5px(margin) + 80px(img) + 2*10px(padding) = 490px */
-        max-width: 490px; /* Aumentado para que quepan las imágenes laterales y el video */
+        max-width: 250px; /* Aumentado para que quepan las imágenes laterales y el video */
         padding: 10px; /* Reduce el padding en móviles */
     }
 
@@ -165,10 +165,10 @@ body::before {
         display: flex; /* HACEMOS QUE SE MUESTREN en móviles (QUITAMOS display: none;) */
         justify-content: center;
         align-items: center;
-        width: 80px;  /* Ancho más pequeño para el contenedor lateral en móvil */
-        height: 80px; /* Altura igual al ancho para mantener la forma circular */
+        width: 45px;  /* Ancho más pequeño para el contenedor lateral en móvil */
+        height: 210px; /* Altura igual al ancho para mantener la forma circular */
         overflow: hidden; /* IMPORTANTE: Para recortar la imagen si es necesario */
-        border-radius: 50%; /* Asegura que el contenedor siga siendo un círculo */
+        
         margin: 0 5px; /* Pequeño margen para separarlas del video */
         flex-shrink: 0; /* Evita que se encojan en pantallas pequeñas */
     }
