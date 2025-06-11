@@ -156,7 +156,7 @@ body::before {
     .content-area {
         /* Se ajusta el ancho máximo para permitir el video y las imágenes laterales */
         /* Cálculo: 80px(img) + 5px(margin) + 300px(video) + 5px(margin) + 80px(img) + 2*10px(padding) = 490px */
-        max-width: 250px; /* Aumentado para que quepan las imágenes laterales y el video */
+        max-width: 650px; /* Aumentado para que quepan las imágenes laterales y el video */
         padding: 10px; /* Reduce el padding en móviles */
     }
 
