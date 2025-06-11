@@ -1,75 +1,104 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0; /* Un color de fondo suave */
+    background-color: #d0e7f7;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra el contenido horizontalmente */
-    min-height: 100vh; /* Ocupa al menos el alto completo de la ventana */
+    align-items: center;
+    min-height: 100vh;
 }
 
 /* Estilos para la barra superior con imágenes */
 .top-bar {
     width: 100%;
-    background-color: #333; /* Color oscuro para la barra superior */
-    padding: 10px 0;
-    overflow: hidden; /* Oculta las partes de las imágenes que se salen */
-    white-space: nowrap; /* Asegura que las imágenes no salten de línea */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra sutil */
+    background-color: #c7d7f5;
+    padding: 0;
+    height: 100px; /* Altura fija para la barra superior */
+    overflow: hidden; /* ¡Importante para ocultar el desborde! */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.image-slider-container {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap; /* Mantiene las imágenes en una sola línea */
+    height: 75%;
 }
 
 .image-slider {
-    display: inline-block; /* Permite que los elementos estén en una sola línea */
-    animation: scrollImages 20s linear infinite; /* Animación de desplazamiento */
-    /* Ajusta el tiempo (20s) para controlar la velocidad. Menos tiempo = más rápido */
+    display: inline-block;
+    height: 100%;
+    /* El ancho de este div será el de todas las imágenes (originales + duplicadas) */
+    /* La animación moverá la mitad de ese ancho para que el bucle sea suave */
+    animation: scrollImages 20s linear infinite; /* Tiempo de la animación */
 }
 
 .image-slider img {
-    height: 50px; /* Altura de las imágenes en la barra superior */
-    width: auto; /* Ancho automático para mantener la proporción */
-    margin: 0 15px; /* Espacio entre las imágenes */
-    vertical-align: middle; /* Alinea las imágenes verticalmente */
-    filter: invert(100%); /* Hace las imágenes blancas (simulando los iconos del boceto) */
-    /* Quita 'filter: invert(100%);' si tus imágenes ya son como quieres */
+    height: 75%; /* La imagen ocupa el 100% de la altura de su contenedor */
+    width: auto; /* El ancho se ajusta automáticamente para mantener la proporción */
+    object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsionarse */
+    margin: 0 10px; /* Espacio entre las imágenes (ajusta si quieres más o menos) */
+    vertical-align: middle;
 }
 
 /* Animación de las imágenes */
 @keyframes scrollImages {
-    0% { transform: translateX(0); } /* Empieza en la posición original */
-    100% { transform: translateX(-50%); } /* Se mueve la mitad del ancho del slider (para el bucle infinito) */
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
 }
 
 /* Estilos para el área de contenido principal */
 .content-area {
-    flex-grow: 1; /* Hace que esta sección ocupe el espacio restante */
+    flex-grow: 1;
     display: flex;
-    justify-content: center; /* Centra el video horizontalmente */
-    align-items: center; /* Centra el video verticalmente */
-    width: 100%;
-    max-width: 900px; /* Ancho máximo para el área de contenido */
+    justify-content: center;
+    align-items: center;
+    /* Eliminamos 'width: 388%;' ya que es problemático. El width y max-width del contenedor padre
+       ahora se ajustarán al tamaño fijo del video */
+    width: 100%; /* Mantiene el flexbox funcionando correctamente */
+    /* El max-width se ajustará al ancho del video más el padding */
+    max-width: 388px; /* Ajustado al ancho del video deseado */
     padding: 20px;
-    box-sizing: border-box; /* Incluye padding en el ancho total */
+    box-sizing: border-box;
 }
 
 /* Estilos para el contenedor del video de YouTube */
 .video-container {
     position: relative;
-    width: 100%;
-    padding-bottom: 56.25%; /* Relación de aspecto 16:9 (altura / ancho) */
-    height: 0;
+    /* Establecemos el ancho y la altura fijos para el contenedor del video */
+    width: 388px;  /* ANCHO FIJO DEL VIDEO */
+    height: 590px; /* ALTURA FIJA DEL VIDEO */
+    
+    padding-bottom: 0; /* Eliminamos el padding basado en porcentaje */
+    
     overflow: hidden;
-    background-color: #000; /* Fondo negro para el contenedor del video */
-    border-radius: 8px; /* Bordes ligeramente redondeados */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Sombra más pronunciada para el video */
+    background-color: #1500fc;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(15, 3, 255, 0.3);
 }
 
-.video-container iframe {
+.video-container iframe,
+.video-container video { /* Aplicamos también al elemento <video> si lo estás usando */
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    border: none; /* Elimina el borde predeterminado del iframe */
+    width: 100%; /* Ocupa el 100% del ancho del .video-container (388px) */
+    height: 100%; /* Ocupa el 100% de la altura del .video-container (690px) */
+    border: none;
+    object-fit: cover; /* Asegura que el video/iframe llene el espacio */
+}
+
+/* **NUEVA REGLA CSS: Ajuste para la imagen de portada del video** */
+.video-container video[poster] {
+    object-fit: cover; /* Recorta la imagen para que llene el contenedor */
+    width: 100%;       /* Asegura que la imagen de portada ocupe el ancho */
+    height: 100%;      /* Asegura que la imagen de portada ocupe la altura */
+    position: absolute; /* Para que se posicione correctamente */
+    top: 0;
+    left: 0;
 }
 
 /* Estilos para la apariencia general de la página, simulando el borde del boceto */
@@ -79,6 +108,11 @@ body::before {
     top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
+    border: 5px solid #000;
+    pointer-events: none;
+    z-index: -1;
+}
     bottom: 0;
     border: 5px solid #000; /* Borde oscuro alrededor de toda la ventana */
     pointer-events: none; /* Permite interactuar con los elementos debajo del borde */
