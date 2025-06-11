@@ -13,8 +13,8 @@ body {
     width: 100%;
     background-color: #c7d7f5;
     padding: 0;
-    height: 100px; /* Altura fija para la barra superior */
-    overflow: hidden; /* ¡Importante para ocultar el desborde! */
+    height: 100px; /* Altura fija para la barra superior en escritorio */
+    overflow: hidden;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     position: relative;
     display: flex;
@@ -24,23 +24,21 @@ body {
 .image-slider-container {
     width: 100%;
     overflow: hidden;
-    white-space: nowrap; /* Mantiene las imágenes en una sola línea */
-    height: 75%;
+    white-space: nowrap;
+    height: 75%; /* Altura del contenedor del slider */
 }
 
 .image-slider {
     display: inline-block;
     height: 100%;
-    /* El ancho de este div será el de todas las imágenes (originales + duplicadas) */
-    /* La animación moverá la mitad de ese ancho para que el bucle sea suave */
-    animation: scrollImages 20s linear infinite; /* Tiempo de la animación */
+    animation: scrollImages 20s linear infinite;
 }
 
 .image-slider img {
-    height: 75%; /* La imagen ocupa el 100% de la altura de su contenedor */
-    width: auto; /* El ancho se ajusta automáticamente para mantener la proporción */
-    object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsionarse */
-    margin: 0 10px; /* Espacio entre las imágenes (ajusta si quieres más o menos) */
+    height: 75%; /* Altura de las imágenes dentro del slider */
+    width: auto;
+    object-fit: cover;
+    margin: 0 10px;
     vertical-align: middle;
 }
 
@@ -50,30 +48,24 @@ body {
     100% { transform: translateX(-50%); }
 }
 
-/* Estilos para el área de contenido principal */
+/* Estilos para el área de contenido principal (escritorio) */
 .content-area {
     flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Eliminamos 'width: 388%;' ya que es problemático. El width y max-width del contenedor padre
-       ahora se ajustarán al tamaño fijo del video */
-    width: 100%; /* Mantiene el flexbox funcionando correctamente */
-    /* El max-width se ajustará al ancho del video más el padding */
-    max-width: 388px; /* Ajustado al ancho del video deseado */
+    width: 100%;
+    max-width: 388px; /* Ancho máximo del video en escritorio */
     padding: 20px;
     box-sizing: border-box;
 }
 
-/* Estilos para el contenedor del video de YouTube */
+/* Estilos para el contenedor del video (escritorio) */
 .video-container {
     position: relative;
-    /* Establecemos el ancho y la altura fijos para el contenedor del video */
-    width: 388px;  /* ANCHO FIJO DEL VIDEO */
-    height: 590px; /* ALTURA FIJA DEL VIDEO */
-    
-    padding-bottom: 0; /* Eliminamos el padding basado en porcentaje */
-    
+    width: 388px;  /* ANCHO FIJO DEL VIDEO en escritorio */
+    height: 590px; /* ALTURA FIJA DEL VIDEO en escritorio */
+    padding-bottom: 0;
     overflow: hidden;
     background-color: #1500fc;
     border-radius: 8px;
@@ -81,22 +73,22 @@ body {
 }
 
 .video-container iframe,
-.video-container video { /* Aplicamos también al elemento <video> si lo estás usando */
+.video-container video {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%; /* Ocupa el 100% del ancho del .video-container (388px) */
-    height: 100%; /* Ocupa el 100% de la altura del .video-container (690px) */
+    width: 100%;
+    height: 100%;
     border: none;
-    object-fit: cover; /* Asegura que el video/iframe llene el espacio */
+    object-fit: cover;
 }
 
-/* **NUEVA REGLA CSS: Ajuste para la imagen de portada del video** */
+/* Ajuste para la imagen de portada del video */
 .video-container video[poster] {
-    object-fit: cover; /* Recorta la imagen para que llene el contenedor */
-    width: 100%;       /* Asegura que la imagen de portada ocupe el ancho */
-    height: 100%;      /* Asegura que la imagen de portada ocupe la altura */
-    position: absolute; /* Para que se posicione correctamente */
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
     top: 0;
     left: 0;
 }
@@ -113,8 +105,34 @@ body::before {
     pointer-events: none;
     z-index: -1;
 }
-    bottom: 0;
-    border: 5px solid #000; /* Borde oscuro alrededor de toda la ventana */
-    pointer-events: none; /* Permite interactuar con los elementos debajo del borde */
-    z-index: -1; /* Asegura que el borde esté detrás del contenido */
+
+/* --------------------------------------------------- */
+/* *** MEDIA QUERIES PARA MÓVILES Y TABLETAS PEQUEÑAS *** */
+/* Se aplicarán estos estilos cuando el ancho de la pantalla sea de 768px o menos */
+@media (max-width: 768px) {
+    /* Barra superior (top-bar) más pequeña en móviles */
+    .top-bar {
+        height: 70px; /* Altura más pequeña para la barra superior en móviles */
+    }
+
+    .image-slider-container {
+        height: 100%; /* Asegura que el contenedor del slider siga ocupando el 100% de la nueva altura de la barra */
+    }
+
+    .image-slider img {
+        height: 85%; /* Ajusta la altura de las imágenes para que se adapten a la nueva barra */
+        margin: 0 5px; /* Menos espacio entre imágenes para pantallas pequeñas */
+    }
+
+    /* Contenedor del video (video-container) más pequeño en móviles */
+    .video-container {
+        width: 300px;  /* Ancho más pequeño para el video en móviles */
+        height: 450px; /* Altura más pequeña para el video en móviles */
+    }
+
+    /* También es buena idea ajustar el max-width del content-area para móviles */
+    .content-area {
+        max-width: 300px; /* Se ajusta al nuevo ancho del video */
+        padding: 10px; /* Reduce el padding en móviles */
+    }
 }
