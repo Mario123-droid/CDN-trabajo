@@ -174,8 +174,8 @@ body::before {
     }
 
     .side-image-container img {
-        width: 100%; /* La imagen llenará el ancho de su contenedor */
-        height: 100%; /* La imagen llenará la altura de su contenedor */
+        width: 35%; /* La imagen llenará el ancho de su contenedor */
+        height: 200%; /* La imagen llenará la altura de su contenedor */
         object-fit: fill; /* ESTIRA LA IMAGEN para llenar el círculo, incluso si eso la deforma */
         border-radius: 50%; /* Mantiene la imagen dentro del círculo */
     }
