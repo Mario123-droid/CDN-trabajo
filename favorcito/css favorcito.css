@@ -52,10 +52,11 @@ body {
 .content-area {
     flex-grow: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Centra horizontalmente los elementos hijos */
+    align-items: center; /* Centra verticalmente los elementos hijos */
     width: 100%;
-    max-width: 388px; /* Ancho máximo del video en escritorio */
+    /* Ajusta el espacio máximo para acomodar el video y las imágenes laterales */
+    max-width: 800px; /* Ejemplo: 388px (video) + 2*150px (imágenes) + paddings/margins */
     padding: 20px;
     box-sizing: border-box;
 }
@@ -70,6 +71,7 @@ body {
     background-color: #1500fc;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(15, 3, 255, 0.3);
+    margin: 0 20px; /* Añade un margen para separar el video de las imágenes laterales */
 }
 
 .video-container iframe,
@@ -91,6 +93,25 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+/* --- NUEVOS ESTILOS AÑADIDOS PARA LAS IMÁGENES LATERALES --- */
+.side-image-container {
+    display: flex; /* Usar flexbox para centrar la imagen dentro de su contenedor */
+    justify-content: center;
+    align-items: center;
+    width: 150px; /* Ajusta el ancho según el tamaño deseado de la imagen */
+    height: 290px; /* Haz que su altura coincida con la del video o ajústala */
+  
+
+    flex-shrink: 0; /* Evita que se encoja en pantallas pequeñas */
+}
+
+.side-image-container img {
+    width: 100%; /* La imagen llenará el ancho de su contenedor */
+    height: 100%; /* La imagen llenará la altura de su contenedor */
+   
+    border-radius: 50%; /* Hace que la imagen en sí también sea redonda */
 }
 
 /* Estilos para la apariencia general de la página, simulando el borde del boceto */
@@ -124,10 +145,16 @@ body::before {
         margin: 0 5px; /* Menos espacio entre imágenes para pantallas pequeñas */
     }
 
+    /* Ocultar las imágenes laterales en móviles */
+    .side-image-container {
+        display: none; /* Las imágenes laterales no se mostrarán en pantallas pequeñas */
+    }
+
     /* Contenedor del video (video-container) más pequeño en móviles */
     .video-container {
         width: 300px;  /* Ancho más pequeño para el video en móviles */
         height: 450px; /* Altura más pequeña para el video en móviles */
+        margin: 0; /* Elimina el margen lateral cuando las imágenes están ocultas */
     }
 
     /* También es buena idea ajustar el max-width del content-area para móviles */
